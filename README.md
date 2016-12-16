@@ -1,3 +1,5 @@
+This is code that follows a YouTube [tutorial series](https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBbSLZjvleMwldX8jGgXV6a) from user thenewboston. The repo was forked from  [here](https://github.com/buckyroberts/React-Redux-Boilerplate). I've added my own notes to help me understand how Redux works.
+
 ![](http://i.imgur.com/DUiL9yn.png)
 
 # React/Sass/Redux Boilerplate

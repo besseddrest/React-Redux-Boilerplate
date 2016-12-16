@@ -1,48 +1,43 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {selectUser} from '../actions/index'
-
+import {selectUser} from '../actions/index';
 
 class UserList extends Component {
+  // maps over each item in UserList
+  createListItems() {
+    return this.props.users.map((user) => {
+      return (
+          <li
+            key={user.id}
+            onClick={() => this.props.selectUser(user)}
+          >
+            {user.first} {user.last}
+          </li>
+      );
+    });
+  } // createListItems
 
-    renderList() {
-        return this.props.users.map((user) => {
-            return (
-                <li
-                    key={user.id}
-                    onClick={() => this.props.selectUser(user)}
-                >
-                    {user.first} {user.last}
-                </li>
-            );
-        });
-    }
-
-    render() {
-        return (
-            <ul>
-                {this.renderList()}
-            </ul>
-        );
-    }
-
+  render() {
+    return (
+      <ul>
+        {this.createListItems()}
+      </ul>
+    )
+  } // render
 }
 
-// Get apps state and pass it as props to UserList
-//      > whenever state changes, the UserList will automatically re-render
+// makes component subscribe to the Redux store updates
 function mapStateToProps(state) {
-    return {
-        users: state.users
-    };
+  return {
+    users: state.users
+  }
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({selectUser: selectUser}, dispatch);
+// merges the action creator into the component's props
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({selectUser: selectUser}, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
-export default connect(mapStateToProps, matchDispatchToProps)(UserList);
+// connect() creates the container fetches app state data and uses it to render components
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
